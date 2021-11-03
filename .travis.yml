@@ -1,0 +1,22 @@
+language: generic
+sudo: required
+services:
+	- docker
+
+before_install:
+	- docker build -t sandeshkamble/docker-react -f Dockerfile.dev .
+
+script:
+	- docker run -e CI=true sandeshkamble/docker-react npm run test
+
+deploy:
+	provider: elasticbeanstalk
+	region: "ap-southeast-1"
+	app: "haptik-assignment"
+	env: "Haptikassignment-env"
+	bucket_name: "elasticbeanstalk-ap-southeast-1-207079611496"
+  bucket_path: "haptik-assignment"
+	on:
+		branch: master
+	access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
