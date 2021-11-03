@@ -1,12 +1,6 @@
 version: "3"
 services:
   web:
-    build:
-      context: .
-      dockerfile: Dockerfile.dev
-      network: host
-    ports:
-      - "3000:3000"
-    volumes:
-      - .:/app
-    network_mode: "host"
+    image: "sandeshkamble/haptik-assignment"
+    mem_limit: 128m
+    hostname: web
