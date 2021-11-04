@@ -1,6 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
+import Root from './Root';
 import App from './App';
 import TitleBar from './title-bar/TitleBar';
 import AddFriendForm from './add-friend-form/AddFriendForm';
@@ -11,7 +12,11 @@ import SortOptions from './sort-options/SortOptions';
 let wrapped;
 
 beforeEach(() => {
-  wrapped = mount(<App />);
+  wrapped = mount(
+    <Root>
+      <App />
+    </Root>
+  );
 });
 
 afterEach(() => {

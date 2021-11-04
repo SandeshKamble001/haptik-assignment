@@ -11,7 +11,9 @@ const options = [
 ];
 
 beforeEach(() => {
-  wrapped = mount(<SortOptions options={options} />);
+  wrapped = mount(
+    <SortOptions options={options} onChange={() => {}} sortField="name" />
+  );
 });
 
 afterEach(() => {

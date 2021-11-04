@@ -6,7 +6,7 @@ import AddFriendForm from './AddFriendForm';
 let wrapped;
 
 beforeEach(() => {
-  wrapped = mount(<AddFriendForm />);
+  wrapped = mount(<AddFriendForm onSubmit={() => {}} />);
 });
 
 afterEach(() => {

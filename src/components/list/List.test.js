@@ -21,6 +21,6 @@ beforeEach(() => {
   wrapped = shallow(<List friends={friends} />);
 });
 
-it('renders one ListItem per friend', () => {
+it('renders one list item per friend', () => {
   expect(wrapped.find(ListItem).length).toEqual(friends.length);
 });

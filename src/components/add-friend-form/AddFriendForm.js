@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 
 import './AddFriendForm.scss';
 
-const AddFriendForm = () => {
+const AddFriendForm = ({ onSubmit }) => {
   const [name, setName] = useState('');
 
   const onFormSubmit = (event) => {
     event.preventDefault();
+    onSubmit(name);
     setName('');
   };
 

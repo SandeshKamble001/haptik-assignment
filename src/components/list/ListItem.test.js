@@ -1,6 +1,7 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 
+import Root from '../Root';
 import ListItem from './ListItem';
 
 const friend = { name: 'Rahul Gupta', isFavorite: false };
@@ -9,7 +10,15 @@ const favFriend = { name: 'Akash Singh', isFavorite: true };
 let wrapped;
 
 beforeEach(() => {
-  wrapped = shallow(<ListItem friend={friend} />);
+  wrapped = mount(
+    <Root initialState={{ friends: [friend] }}>
+      <ListItem friend={friend} />
+    </Root>
+  );
+});
+
+afterEach(() => {
+  wrapped.unmount();
 });
 
 it('shows name passed from property.', () => {
@@ -27,8 +36,14 @@ it('changes favorite icon to filled according to isFavorite value', () => {
     'star.svg'
   );
 
-  const favWrapped = shallow(<ListItem friend={favFriend} />);
+  const favWrapped = mount(
+    <Root initialState={{ friends: [favFriend] }}>
+      <ListItem friend={favFriend} />
+    </Root>
+  );
   expect(favWrapped.find('button.btn-fav').find('img').prop('src')).toEqual(
     'star-filled.svg'
   );
+
+  favWrapped.unmount();
 });

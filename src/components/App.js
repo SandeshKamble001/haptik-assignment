@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 
 import TitleBar from './title-bar/TitleBar';
 import AddFriendForm from './add-friend-form/AddFriendForm';
@@ -6,24 +7,13 @@ import List from './list/List';
 import SearchBar from './search-bar/SearchBar';
 import SortOptions from './sort-options/SortOptions';
 
+import { addFriend } from '../state/actions';
+import searchFriends from '../utils/searchFriends';
+import sortFriends from '../utils/sortFriends';
+
 import './App.scss';
 import optionsIcon from '../assets/icons/options.svg';
 import closeIcon from '../assets/icons/cross.svg';
-
-const friends = [
-  {
-    name: 'Rahul Gupta',
-    isFavorite: false,
-  },
-  {
-    name: 'Shivangi Sharma',
-    isFavorite: true,
-  },
-  {
-    name: 'Akash Singh',
-    isFavorite: true,
-  },
-];
 
 const sortOptions = [
   {
@@ -36,8 +26,10 @@ const sortOptions = [
   },
 ];
 
-const App = () => {
+const App = ({ friends, addFriend }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [sortField, setSortField] = useState('name');
 
   const renderOpenMenuButton = () => {
     return (
@@ -60,12 +52,24 @@ const App = () => {
       <TitleBar>
         {isMenuOpen ? renderCloseMenuButton() : renderOpenMenuButton()}
       </TitleBar>
-      {isMenuOpen ? <SearchBar /> : null}
-      {isMenuOpen ? <SortOptions options={sortOptions} /> : null}
-      <AddFriendForm />
-      <List friends={friends} />
+      {isMenuOpen ? <SearchBar onSearch={setSearchTerm} /> : null}
+      {isMenuOpen ? (
+        <SortOptions
+          onChange={setSortField}
+          sortField="name"
+          options={sortOptions}
+        />
+      ) : null}
+      <AddFriendForm onSubmit={addFriend} />
+      <List
+        friends={sortFriends(sortField, searchFriends(searchTerm, friends))}
+      />
     </div>
   );
 };
 
-export default App;
+const mapStateToProps = (state) => ({
+  friends: state.friends,
+});
+
+export default connect(mapStateToProps, { addFriend })(App);
