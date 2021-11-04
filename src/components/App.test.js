@@ -1,12 +1,25 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { shallow } from 'enzyme';
+
 import App from './App';
+import TitleBar from './title-bar/TitleBar';
+import AddFriendForm from './add-friend-form/AddFriendForm';
+import List from './list/List';
 
-it('renders without crashing', () => {
-  const div = document.createElement('div');
-  ReactDOM.render(<App />, div);
+let wrapped;
 
-  expect(div.innerHTML).toContain('App2');
+beforeEach(() => {
+  wrapped = shallow(<App />);
+});
 
-  ReactDOM.unmountComponentAtNode(div);
+it('shows a title bar', () => {
+  expect(wrapped.find(TitleBar).length).toEqual(1);
+});
+
+it('shows add friend form', () => {
+  expect(wrapped.find(AddFriendForm).length).toEqual(1);
+});
+
+it('shows friend list', () => {
+  expect(wrapped.find(List).length).toEqual(1);
 });

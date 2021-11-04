@@ -1,0 +1,12 @@
+@import '../../variables.scss';
+
+.name-input,
+.name-input:active {
+  display: block;
+  width: 100%;
+  height: 40px;
+  padding: 10px;
+  border: none;
+  outline: none;
+  border-bottom: $primary-color 1px solid;
+}
