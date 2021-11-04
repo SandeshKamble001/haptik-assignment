@@ -2,10 +2,11 @@ import React from 'react';
 
 import './TitleBar.scss';
 
-const TitleBar = () => {
+const TitleBar = ({ children }) => {
   return (
-    <div className="container">
+    <div className="title-container">
       <h1 className="title-text">Friends List</h1>
+      {children}
     </div>
   );
 };

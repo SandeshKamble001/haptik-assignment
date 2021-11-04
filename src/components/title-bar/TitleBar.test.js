@@ -6,7 +6,11 @@ import TitleBar from './TitleBar';
 let wrapped;
 
 beforeEach(() => {
-  wrapped = shallow(<TitleBar />);
+  wrapped = shallow(
+    <TitleBar>
+      <button>Search</button>
+    </TitleBar>
+  );
 });
 
 it('contains title', () => {
@@ -15,4 +19,8 @@ it('contains title', () => {
 
 it('shows correct title', () => {
   expect(wrapped.find('.title-text').text()).toEqual('Friends List');
+});
+
+it('shows button passed as chiild', () => {
+  expect(wrapped.find('button').length).toEqual(1);
 });
