@@ -1,0 +1,11 @@
+@import '../../variables.scss';
+
+.container {
+  width: 100%;
+  padding: 10px;
+  background-color: $primary-color;
+}
+
+h1.title-text {
+  font-size: 20px;
+}

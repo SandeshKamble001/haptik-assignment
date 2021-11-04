@@ -1,0 +1,7 @@
+@import '../variables.scss';
+
+.app-container {
+  width: 300px;
+  border: $primary-color 1px solid;
+  margin: 10px 0 0 10px;
+}
