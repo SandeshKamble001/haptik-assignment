@@ -1,9 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import './SortOptions.scss';
 
-const SortOptions = ({ options }) => {
+const SortOptions = ({ options, sortField, onChange }) => {
   const [selected, setSelected] = useState('');
+
+  useEffect(() => {
+    setSelected(sortField);
+  }, [sortField, setSelected]);
+
+  useEffect(() => {
+    onChange(selected);
+  }, [selected, onChange]);
 
   const renderSortOption = ({ label, value }) => {
     return (

@@ -1,9 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import './SearchBar.scss';
 
-const SearchBar = () => {
+const SearchBar = ({ onSearch }) => {
   const [searchTerm, setSearchTerm] = useState('');
+
+  useEffect(() => {
+    onSearch(searchTerm);
+  }, [searchTerm, onSearch]);
+
   return (
     <form className="search-form">
       <input

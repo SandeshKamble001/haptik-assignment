@@ -6,7 +6,7 @@ import SearchBar from './SearchBar';
 let wrapped;
 
 beforeEach(() => {
-  wrapped = mount(<SearchBar />);
+  wrapped = mount(<SearchBar onSearch={() => {}} />);
 });
 
 afterAll(() => {
