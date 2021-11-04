@@ -9,13 +9,18 @@ before_install:
 script:
   - docker run -e CI=true sandeshkamble/haptik-assignment npm run test
 
+after_success:
+  - docker build -t sandeshkamble/haptik-assignment .
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - docker push sandeshkamble/haptik-assignment
+
 deploy:
   provider: elasticbeanstalk
-  region: "ap-southeast-1"
-  app: "haptik-assignment"
-  env: "Haptikassignment-env"
-  bucket_name: "elasticbeanstalk-ap-southeast-1-207079611496"
-  bucket_path: "haptik-assignment"
+  region: 'ap-southeast-1'
+  app: 'haptik-assignment'
+  env: 'Haptikassignment-env'
+  bucket_name: 'elasticbeanstalk-ap-southeast-1-207079611496'
+  bucket_path: 'haptik-assignment'
   on:
     branch: master
   access_key_id: $AWS_ACCESS_KEY
