@@ -1,0 +1,27 @@
+@import '../../variables.scss';
+
+.paginator-container {
+  display: flex;
+  padding: 10px;
+  gap: 10px;
+  align-items: center;
+  justify-content: flex-end;
+}
+.paginator-button {
+  height: 40px;
+  width: 40px;
+  padding: 5px;
+  background-color: #fff;
+  border: none;
+}
+
+.paginator-button:hover {
+  background-color: $accent-color;
+  border: none;
+  cursor: pointer;
+}
+
+.paginator-button:focus {
+  border: none;
+  background-color: none;
+}

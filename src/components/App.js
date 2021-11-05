@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import TitleBar from './title-bar/TitleBar';
@@ -6,6 +6,7 @@ import AddFriendForm from './add-friend-form/AddFriendForm';
 import List from './list/List';
 import SearchBar from './search-bar/SearchBar';
 import SortOptions from './sort-options/SortOptions';
+import Paginator from './paginator/Paginator';
 
 import { addFriend } from '../state/actions';
 import searchFriends from '../utils/searchFriends';
@@ -30,6 +31,21 @@ const App = ({ friends, addFriend }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [sortField, setSortField] = useState('name');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [filteredSortedFriends, setFilteredSortedFriends] = useState([]);
+  const [friendsToShow, setFriendsToShow] = useState([]);
+
+  useEffect(() => {
+    setFilteredSortedFriends(
+      sortFriends(sortField, searchFriends(searchTerm, friends))
+    );
+  }, [friends, sortField, searchTerm]);
+
+  useEffect(() => {
+    const startIndex = (currentPage - 1) * 4;
+    const endIndex = startIndex + 4;
+    setFriendsToShow(filteredSortedFriends.slice(startIndex, endIndex));
+  }, [currentPage, filteredSortedFriends]);
 
   const renderOpenMenuButton = () => {
     return (
@@ -61,9 +77,14 @@ const App = ({ friends, addFriend }) => {
         />
       ) : null}
       <AddFriendForm onSubmit={addFriend} />
-      <List
-        friends={sortFriends(sortField, searchFriends(searchTerm, friends))}
-      />
+      <List friends={friendsToShow} />
+      {filteredSortedFriends.length > 4 ? (
+        <Paginator
+          totalItems={filteredSortedFriends.length}
+          pageSize={4}
+          onPageChange={setCurrentPage}
+        />
+      ) : null}
     </div>
   );
 };
