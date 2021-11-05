@@ -9,7 +9,7 @@ const Paginator = ({ totalItems, pageSize, onPageChange }) => {
 
   useEffect(() => {
     onPageChange(currentPage);
-  }, [currentPage]);
+  }, [currentPage, onPageChange]);
 
   const maxPages = Math.ceil(totalItems / pageSize);
 
