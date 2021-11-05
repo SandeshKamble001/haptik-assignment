@@ -9,8 +9,12 @@ const SearchBar = ({ onSearch }) => {
     onSearch(searchTerm);
   }, [searchTerm, onSearch]);
 
+  const onFormSubmit = (event) => {
+    event.preventDefault();
+  };
+
   return (
-    <form className="search-form">
+    <form onSubmit={onFormSubmit} className="search-form">
       <input
         className="search-input"
         value={searchTerm}

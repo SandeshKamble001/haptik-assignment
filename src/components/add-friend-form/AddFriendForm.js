@@ -7,7 +7,7 @@ const AddFriendForm = ({ onSubmit }) => {
 
   const onFormSubmit = (event) => {
     event.preventDefault();
-    onSubmit(name);
+    if (name) onSubmit(name);
     setName('');
   };
 
